@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<body>
+<script>
+function testErrorStack() {
+  var createOnNew = false;
+  try {
+    var error = new Error('some error is thrown');
+    if(error.stack) {
+      createOnNew = true;
+      document.write('An example of Error.stack before throw: <pre>' + error.stack + '</pre>');
+    }
+    throw error;
+  } catch (err) {
+    if (!err.stack) {
+    	document.write('Error.stack is not defined');
+    }else{
+    	document.write('An example of Error.stack: <pre>' + err.stack + '</pre>');
+    	if(createOnNew) {
+    		document.write('On this broweser, Error.stack is created on new<br/>');
+    	}else{
+    		document.write('On this broweser, Error.stack is created on throw<br/>');
+    	}
+        var desc = Object.getOwnPropertyDescriptor(err, 'stack');
+        if(!desc) {
+            desc = Object.getOwnPropertyDescriptor(Error.prototype, 'stack');
+            document.write('On this broweser, Error.stack is defined on Error.prototype<br/>');
+        }
+        if(desc.get) document.write('get defined<br/>');
+        if(desc.set) document.write('set defined<br/>');
+        if(desc.value) document.write('value defined<br/>');
+        if(desc.writable) document.write('writable defined and is true<br/>');
+        if(desc.configurable) document.write('configurable is true<br/>');
+        if(desc.enumerable) document.write('enumerable is true<br/>');
+    }
+  }
+}
+testErrorStack();
+function testNative() {
+    try {
+        [1].forEach(function() {
+            throw new Error('try native');
+        });
+    }catch(err) {
+        document.write('An example of Error.stack involving natives: <pre>' + err.stack + '</pre>');
+    }
+}
+testNative();
+function testEval() {
+    try {
+        eval("throw new Error('try native')");
+    }catch(err) {
+        document.write('An example of Error.stack involving eval: <pre>' + err.stack + '</pre>');
+    }
+}
+testEval();
+function testNewFunc() {
+    try {
+        var f = new Function("throw new Error('try native')");
+        f();
+    }catch(err) {
+        document.write('An example of Error.stack involving new Function: <pre>' + err.stack + '</pre>');
+    }
+}
+testNewFunc();
+</script>
+</body>
