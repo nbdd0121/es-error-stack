@@ -26,7 +26,7 @@ All modern browsers have support for stack trace, however some details are diffe
 |                 | Internet Explorer | Edge | Chrome | Firefox | Safari | Opera |
 |-----------------|-------------------|------|--------|---------|--------|-------|
 | create on new   |                   | X    | X      | X*      |        | X     |
-| on prototype    | X                 |      |        | X       |        | X     |
+| on prototype    |                   |      |        | X       |        |       |
 | create on throw | X**               | X*** |        |         |        |       |
 | get             | X                 | X    | X      | X       |        | X     |
 | set             | X                 | X    | X      | X       |        | X     |
