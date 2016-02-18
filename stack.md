@@ -137,8 +137,8 @@ Firefox: Surrounding function name suffixed by `/<`
 **Tail calls**
 
 None of the modern browsers support tail calls yet, so it cannot be compared.
-Theoretically when a tail call is performed, it's stack frame is removed,
-so it should not be in the final stack string. However, this can make programs
+Theoretically when a tail call is performed, its stack frame is removed,
+so it should not be in the final stack string. However, this makes programs
 harder to debug, so I suggest that at least an indication that a tail call is
 performed should exist.
 
