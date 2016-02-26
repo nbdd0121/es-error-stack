@@ -142,6 +142,27 @@ so it should not be in the final stack string. However, this makes programs
 harder to debug, so I suggest that at least an indication that a tail call is
 performed should exist.
 
+**Asynchronous calls**
+
+None of stable releases of modern browsers include a history of previous stack frames for asynchronous calls.
+
+The Nightly build of Firefox includes stack frame history, in following format
+```
+wrapper@file:///***/test.html:78:19
+setTimeout handler*testTimeout@file:///***/test.html:76:5
+@file:///***/test.html:84:1
+```
+Similar stack trace for Promise:
+```
+wrapper@file:///***/test.html:89:19
+promise callback*testPromise@file:///***/test.html:87:5
+@file:///***/test.html:96:5
+```
+
+**Generators**
+
+None of modern browsers include the stack frame of the function which creates the generator.
+
 **Source maps**
 
 Most browser's debugger tools support source map, but this is not standardized. Stack traces can provide
@@ -149,6 +170,8 @@ different position information when source maps exist.
 
 # API
 
-To be discussed
+It is suggested the API can be made accessible via [Built-in Modules](https://github.com/tc39/ecma262/issues/395) if possible.
+
+Details to be discussed
 
 

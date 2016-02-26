@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <body>
 <script>
+function displayInfo(name, result) {
+    var pre = document.createElement('pre');
+    pre.textContent = result;
+    var div = document.createElement('div');
+    div.textContent = name;
+    div.appendChild(pre);
+    document.body.appendChild(div);
+}
+
 function testErrorStack() {
   var createOnNew = false;
   try {
@@ -62,5 +71,51 @@ function testNewFunc() {
     }
 }
 testNewFunc();
+
+function testTimeout() {
+    setTimeout(function wrapper() {
+        try {
+            throw new Error('try timeout');
+        } catch (err) {
+            displayInfo('An example of Error.stack when using setTimeout: ', err.stack);
+        }
+    }, 0);
+}
+testTimeout();
+
+function testPromise() {
+    Promise.resolve().then(function wrapper() {
+        try {
+            throw new Error('try promise');
+        } catch (err) {
+            displayInfo('An example of Error.stack when using Promise: ', err.stack);
+        }
+    }, 0);
+}
+if(typeof Promise!=='undefined')
+    testPromise();
+
+function runComment(f) {
+    try {
+        eval(f.toString().match(/\/\*\s*([\s\S]*?)\s*\*\//m)[1]);
+    } catch (ex) {
+        displayInfo('Cannot evaluate script', ex.stack);
+    }
+}
+runComment(function() {/*
+    function testGenerator() {
+        try {
+            function genwrap() {
+                return function* gen() {
+                    throw new Error('try generator');
+                }();
+            }
+            genwrap().next();
+        } catch (err) {
+            displayInfo('An example of Error.stack for generator invocation: ', err.stack);
+        }
+    }
+    testGenerator();
+*/});
 </script>
 </body>
