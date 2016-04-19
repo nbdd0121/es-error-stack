@@ -25,17 +25,15 @@ All modern browsers have support for stack trace, however some details are diffe
 
 |                 | Internet Explorer | Edge | Chrome | Firefox | Safari | Opera |
 |-----------------|-------------------|------|--------|---------|--------|-------|
-| create on new   |                   | X    | X      | X*      |        | X     |
+| create on new   |                   | X    | X      | X*      | X      | X     |
 | on prototype    |                   |      |        | X       |        |       |
 | create on throw | X**               | X*** |        |         |        |       |
 | get             | X                 | X    | X      | X       |        | X     |
 | set             | X                 | X    | X      | X       |        | X     |
-| value           |                   |      |        |         |        |       |
-| writable        |                   |      |        |         |        |       |
-| configurable    | X                 | X    | X      | X       |        | X     |
+| value           |                   |      |        |         | X      |       |
+| writable        |                   |      |        |         | X      |       |
+| configurable    | X                 | X    | X      | X       | X      | X     |
 | enumerable      | X                 |      |        |         |        |       |
-
-(Data needed for Safari)
 
 \* Though defined on prototype, Firefox generates line information when object is created
 
